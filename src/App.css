@@ -1,0 +1,135 @@
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom Animations */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes float-delayed {
+    0%, 100% {
+        transform: translateY(0px) translateX(0px);
+    }
+    50% {
+        transform: translateY(-30px) translateX(10px);
+    }
+}
+
+@keyframes pulse-slow {
+    0%, 100% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes bounce-slow {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+@keyframes gradient-x {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Apply animations */
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+    animation: float-delayed 8s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+    animation: pulse-slow 4s ease-in-out infinite;
+}
+
+.animate-bounce-slow {
+    animation: bounce-slow 2s ease-in-out infinite;
+}
+
+.animate-scroll {
+    animation: scroll 2s ease-in-out infinite;
+}
+
+.animate-gradient-x {
+    background-size: 200% 200%;
+    animation: gradient-x 3s ease infinite;
+}
+
+/* 3D Transform effects */
+.transform-3d {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+/* Hover 3D effects */
+.hover-3d {
+    transition: transform 0.3s ease;
+}
+
+.hover-3d:hover {
+    transform: rotateY(5deg) rotateX(5deg) translateZ(10px);
+}
+
+/* Parallax container */
+.parallax-container {
+    overflow: hidden;
+    position: relative;
+}
+
+/* Custom gradient text */
+.gradient-text {
+    background: linear-gradient(135deg, #10b981, #14b8a6, #06b6d4);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Smooth page transitions */
+.page-transition {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Video overlay effects */
+video {
+    filter: brightness(0.8) saturate(1.2);
+}
