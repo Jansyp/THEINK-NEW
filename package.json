@@ -2,6 +2,7 @@
     "name":  "creative-agency-hub-clone",
     "version":  "1.0.0",
     "private":  true,
+    "homepage":  "https://jansyp.github.io/THEINK-NEW",
     "dependencies":  {
                          "lucide-react":  "^0.468.0",
                          "react":  "^18.3.1",
@@ -16,8 +17,13 @@
                     "start":  "react-scripts start",
                     "build":  "react-scripts build",
                     "test":  "react-scripts test",
-                    "eject":  "react-scripts eject"
+                    "eject":  "react-scripts eject",
+                    "predeploy":  "npm run build",
+                    "deploy":  "gh-pages -d build"
                 },
+    "devDependencies":  {
+                            "gh-pages":  "^6.2.0"
+                        },
     "browserslist":  {
                          "production":  [
                                             "\u003e0.2%",
