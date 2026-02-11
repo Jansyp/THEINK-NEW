@@ -22,11 +22,23 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    // Mock form submission
+
+    const whatsappNumber = '9551727417';
+    const message = [
+      'New Contact Form Enquiry',
+      `Name: ${formData.name}`,
+      `Email: ${formData.email}`,
+      `Phone: ${formData.phone || 'N/A'}`,
+      `Service: ${formData.service}`,
+      `Message: ${formData.message}`
+    ].join('\n');
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappUrl, '_blank');
+
     toast({
       title: "Message Sent!",
-      description: "We'll get back to you within 24 hours.",
+      description: "Opening WhatsApp with your enquiry details.",
     });
 
     // Reset form

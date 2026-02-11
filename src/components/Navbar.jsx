@@ -7,6 +7,8 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const isHomePage = location.pathname === '/';
+  const useLightNavbarText = isHomePage && !isScrolled;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,7 +31,7 @@ const Navbar = () => {
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-        isScrolled 
+        !useLightNavbarText
           ? 'bg-white/80 backdrop-blur-xl shadow-2xl border-b border-teal-100/50' 
           : 'bg-gradient-to-b from-white/60 to-transparent backdrop-blur-sm'
       }`}
@@ -48,10 +50,20 @@ const Navbar = () => {
             
             {/* Logo Text */}
             <div className="flex flex-col">
-              <span className="text-2xl lg:text-3xl font-bold italic tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-teal-800 to-emerald-800 group-hover:from-emerald-600 group-hover:to-teal-600 transition-all duration-300">
+              <span
+                className={`text-2xl lg:text-3xl font-bold italic tracking-tight bg-clip-text text-transparent transition-all duration-300 ${
+                  !useLightNavbarText
+                    ? 'bg-gradient-to-r from-gray-900 via-teal-800 to-emerald-800 group-hover:from-emerald-600 group-hover:to-teal-600'
+                    : 'bg-gradient-to-r from-white via-emerald-100 to-cyan-100 group-hover:from-emerald-200 group-hover:to-white'
+                }`}
+              >
                 THEINK
               </span>
-              <span className="text-xs font-semibold tracking-widest text-gray-500 uppercase">
+              <span
+                className={`text-xs font-semibold tracking-widest uppercase transition-colors duration-300 ${
+                  !useLightNavbarText ? 'text-gray-500' : 'text-gray-200'
+                }`}
+              >
                 Designs
               </span>
             </div>
@@ -65,8 +77,12 @@ const Navbar = () => {
                 to={link.path}
                 className={`relative px-5 py-2.5 text-sm font-semibold tracking-wide transition-all duration-300 group ${
                   isActive(link.path)
-                    ? 'text-teal-600'
-                    : 'text-gray-700 hover:text-teal-600'
+                    ? !useLightNavbarText
+                      ? 'text-teal-600'
+                      : 'text-emerald-300'
+                    : !useLightNavbarText
+                      ? 'text-gray-700 hover:text-teal-600'
+                      : 'text-white hover:text-emerald-300'
                 }`}
               >
                 {/* Background highlight on hover */}

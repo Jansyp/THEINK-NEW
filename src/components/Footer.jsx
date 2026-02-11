@@ -104,7 +104,9 @@ const Footer = () => {
                 <Facebook className="w-5 h-5" />
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/theinkdesigns?igsh=Y3pmczQ4OTI1Mnhl"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-teal-600 transition-all duration-300 hover:scale-110"
                 aria-label="Instagram"
               >
