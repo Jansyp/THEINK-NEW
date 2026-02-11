@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./App.css";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { HashRouter, Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import FloatingContact from "./components/FloatingContact";
@@ -24,7 +24,7 @@ function ScrollToTop() {
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <HashRouter>
         <ScrollToTop />
         <Navbar />
         <Routes>
@@ -37,7 +37,7 @@ function App() {
         <Footer />
         <FloatingContact />
         <Toaster />
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }
