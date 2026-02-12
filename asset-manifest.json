@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/THEINK-NEW/static/css/main.c6a4fd14.css",
+    "main.js": "/THEINK-NEW/static/js/main.1cb504fe.js",
+    "index.html": "/THEINK-NEW/index.html",
+    "main.c6a4fd14.css.map": "/THEINK-NEW/static/css/main.c6a4fd14.css.map",
+    "main.1cb504fe.js.map": "/THEINK-NEW/static/js/main.1cb504fe.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c6a4fd14.css",
+    "static/js/main.1cb504fe.js"
+  ]
+}
