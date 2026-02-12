@@ -6,7 +6,7 @@ const About = () => {
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50">
+      <section className="py-20 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 reveal-3d">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-4xl mx-auto text-center space-y-6">
             <h1 className="text-5xl lg:text-6xl font-bold text-gray-900">
@@ -96,7 +96,7 @@ const About = () => {
               return (
                 <div
                   key={index}
-                  className="bg-white rounded-2xl p-8 text-center hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
+                  className="bg-white rounded-2xl p-8 text-center hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 tilt-card"
                 >
                   <div className={`w-16 h-16 bg-gradient-to-r ${value.color} rounded-2xl mx-auto mb-6 flex items-center justify-center transform hover:scale-110 hover:rotate-6 transition-all duration-300`}>
                     <Icon className="w-8 h-8 text-white" />
@@ -152,7 +152,7 @@ const About = () => {
             {testimonials.map((testimonial) => (
               <div
                 key={testimonial.id}
-                className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 border-2 border-gray-100 hover:border-teal-500 hover:shadow-2xl transition-all duration-300"
+                className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 border-2 border-gray-100 hover:border-teal-500 hover:shadow-2xl transition-all duration-300 tilt-card"
               >
                 {/* Stars */}
                 <div className="flex space-x-1 mb-4">

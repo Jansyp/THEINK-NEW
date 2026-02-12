@@ -17,7 +17,7 @@ const Services = () => {
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50">
+      <section className="py-20 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 reveal-3d">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-4xl mx-auto text-center space-y-6">
             <h1 className="text-5xl lg:text-6xl font-bold text-gray-900">
@@ -45,7 +45,7 @@ const Services = () => {
                 <div className={`grid lg:grid-cols-2 gap-12 items-center ${!isEven ? 'lg:grid-flow-dense' : ''}`}>
                   {/* Image/Icon Side */}
                   <div className={`${!isEven ? 'lg:col-start-2' : ''}`}>
-                    <div className="relative group">
+                    <div className="relative group tilt-card rounded-3xl">
                       <div className={`absolute inset-0 bg-gradient-to-r ${service.color} rounded-3xl blur-2xl opacity-30 group-hover:opacity-50 transition-opacity duration-300`} />
                       <div className={`relative bg-gradient-to-r ${service.color} rounded-3xl p-12 lg:p-16 flex items-center justify-center transform group-hover:scale-105 transition-transform duration-300`}>
                         <Icon className="w-32 h-32 lg:w-40 lg:h-40 text-white animate-float" />
@@ -114,7 +114,7 @@ const Services = () => {
             ].map((item, index) => (
               <div
                 key={index}
-                className="bg-white rounded-xl p-6 text-center hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-2 border-gray-100 hover:border-teal-500 group"
+                className="bg-white rounded-xl p-6 text-center hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-2 border-gray-100 hover:border-teal-500 group tilt-card"
               >
                 <div className="w-12 h-12 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <Check className="w-6 h-6 text-white" />

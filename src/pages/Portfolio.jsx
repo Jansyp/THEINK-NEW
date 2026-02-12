@@ -12,7 +12,7 @@ const Portfolio = () => {
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50">
+      <section className="py-20 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 reveal-3d">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-4xl mx-auto text-center space-y-6">
             <h1 className="text-5xl lg:text-6xl font-bold text-gray-900">
@@ -53,7 +53,7 @@ const Portfolio = () => {
             {filteredItems.map((item, index) => (
               <div
                 key={item.id}
-                className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+                className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 tilt-card"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 {/* Image Container with 3D effect */}

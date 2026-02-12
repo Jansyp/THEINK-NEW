@@ -54,7 +54,7 @@ const Contact = () => {
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50">
+      <section className="py-20 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 reveal-3d">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-4xl mx-auto text-center space-y-6">
             <h1 className="text-5xl lg:text-6xl font-bold text-gray-900">
@@ -72,7 +72,7 @@ const Contact = () => {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <div className="bg-gradient-to-br from-gray-50 to-white rounded-3xl p-8 lg:p-12 border-2 border-gray-100 shadow-xl">
+            <div className="bg-gradient-to-br from-gray-50 to-white rounded-3xl p-8 lg:p-12 border-2 border-gray-100 shadow-xl tilt-card">
               <h2 className="text-3xl font-bold text-gray-900 mb-8">Send Us a Message</h2>
               
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -184,7 +184,7 @@ const Contact = () => {
                 {/* Phone */}
                 <a
                   href={`tel:${companyInfo.phone}`}
-                  className="group flex items-start space-x-4 p-6 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                  className="group flex items-start space-x-4 p-6 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1 tilt-card"
                 >
                   <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     <Phone className="w-6 h-6 text-white" />
@@ -198,7 +198,7 @@ const Contact = () => {
                 {/* Email */}
                 <a
                   href={`mailto:${companyInfo.email}`}
-                  className="group flex items-start space-x-4 p-6 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                  className="group flex items-start space-x-4 p-6 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1 tilt-card"
                 >
                   <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     <Mail className="w-6 h-6 text-white" />
@@ -214,7 +214,7 @@ const Contact = () => {
                   href={`https://${companyInfo.website}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-start space-x-4 p-6 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                  className="group flex items-start space-x-4 p-6 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1 tilt-card"
                 >
                   <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     <MapPin className="w-6 h-6 text-white" />

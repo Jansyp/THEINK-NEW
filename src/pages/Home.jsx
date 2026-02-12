@@ -54,7 +54,7 @@ const Home = () => {
       {/* Hero Section with Video Background & Animations */}
       <section
         ref={heroRef}
-        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black"
+        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black reveal-3d"
       >
         {/* Video Background */}
         <div className="absolute inset-0 w-full h-full">
@@ -226,7 +226,7 @@ const Home = () => {
               return (
                 <div
                   key={service.id}
-                  className="group relative bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 border-2 border-gray-100 hover:border-teal-500 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
+                  className="group relative bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 border-2 border-gray-100 hover:border-teal-500 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 tilt-card"
                   style={{
                     animationDelay: `${index * 100}ms`
                   }}
