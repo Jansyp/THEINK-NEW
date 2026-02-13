@@ -1,9 +1,24 @@
-﻿import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Monitor, TrendingUp, Printer, Palette, Sparkles, Gift, Check } from 'lucide-react';
 import { services } from '../data/mock';
 
 const Services = () => {
   const [activeService, setActiveService] = useState(0);
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!location.hash) return;
+    const elementId = location.hash.replace('#', '');
+    const element = document.getElementById(elementId);
+    if (!element) return;
+
+    const timer = window.setTimeout(() => {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 120);
+
+    return () => window.clearTimeout(timer);
+  }, [location.hash]);
 
   const iconMap = {
     Monitor,
@@ -40,6 +55,7 @@ const Services = () => {
             return (
               <div
                 key={service.id}
+                id={`service-${service.id}`}
                 className={`mb-20 last:mb-0 ${index > 0 ? 'pt-20 border-t border-gray-200' : ''}`}
               >
                 <div className={`grid lg:grid-cols-2 gap-12 items-center ${!isEven ? 'lg:grid-flow-dense' : ''}`}>
@@ -150,4 +166,3 @@ const Services = () => {
 };
 
 export default Services;
-
