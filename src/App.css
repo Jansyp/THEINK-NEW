@@ -322,6 +322,21 @@ html {
     animation: fadeInUp 0.5s ease-out;
 }
 
+.scroll-premium-reveal {
+    --reveal-delay: 0ms;
+    opacity: 0;
+    transform: translate3d(0, 28px, 0);
+    transition:
+        opacity 560ms ease-out var(--reveal-delay),
+        transform 560ms ease-out var(--reveal-delay);
+    will-change: opacity, transform;
+}
+
+.scroll-premium-reveal.is-visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -349,9 +364,12 @@ video {
     .animate-scroll,
     .animate-gradient-x,
     .tilt-card,
-    .reveal-3d {
+    .reveal-3d,
+    .scroll-premium-reveal {
         animation: none !important;
         transition: none !important;
         transform: none !important;
+        filter: none !important;
+        opacity: 1 !important;
     }
 }

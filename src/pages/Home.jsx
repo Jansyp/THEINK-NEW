@@ -19,6 +19,7 @@ const Home = () => {
     typeof window !== "undefined" ? window.innerWidth : 1200
   );
   const heroVideoRef = useRef(null);
+  const homeRootRef = useRef(null);
   const touchStartXRef = useRef(null);
   const heroVideoSrc = `${process.env.PUBLIC_URL}/video.mp4?v=20260214`;
   const heroFallbackImage =
@@ -93,6 +94,30 @@ const Home = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const root = homeRootRef.current;
+    if (!root) return;
+
+    const revealNodes = Array.from(root.querySelectorAll(".scroll-premium-reveal"));
+    if (revealNodes.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.18, rootMargin: "0px 0px -8% 0px" }
+    );
+
+    revealNodes.forEach((node) => observer.observe(node));
+
+    return () => observer.disconnect();
+  }, []);
+
   const getWrappedIndex = (index) => {
     const length = services.length;
     return ((index % length) + length) % length;
@@ -154,7 +179,7 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div ref={homeRootRef} className="min-h-screen">
       <section
         className="relative min-h-screen overflow-hidden bg-[#060511] text-white"
         style={{
@@ -239,7 +264,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="py-20 lg:py-32 bg-white">
+      <section className="scroll-premium-reveal py-20 lg:py-32 bg-white">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-12 space-y-3">
             <p className="text-lg italic text-teal-600">Creative Solutions For Your Brand</p>
@@ -355,11 +380,14 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="py-20 bg-gradient-to-r from-emerald-600 to-teal-600 text-white">
+      <section className="scroll-premium-reveal py-20 bg-gradient-to-r from-emerald-600 to-teal-600 text-white">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <div key={index} className="text-center transform hover:scale-110 transition-transform duration-300">
+              <div
+                key={index}
+                className="text-center transform hover:scale-110 transition-transform duration-300"
+              >
                 <div className="text-5xl lg:text-6xl font-bold mb-2">{stat.number}</div>
                 <div className="text-lg text-emerald-100">{stat.label}</div>
               </div>
@@ -368,7 +396,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="py-20 lg:py-32 bg-gray-50">
+      <section className="scroll-premium-reveal py-20 lg:py-32 bg-gray-50">
         <div className="container mx-auto px-4 lg:px-8 text-center">
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
             Ready to <span className="italic text-teal-600">Transform</span> Your Brand?

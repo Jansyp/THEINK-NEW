@@ -32,8 +32,8 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-500 ${
         !useLightNavbarText
-          ? 'bg-white/80 backdrop-blur-xl shadow-2xl border-b border-teal-100/50' 
-          : 'bg-gradient-to-b from-white/60 to-transparent backdrop-blur-sm'
+          ? 'bg-white/80 shadow-2xl border-b border-teal-100/50' 
+          : 'bg-gradient-to-b from-white/60 to-transparent'
       }`}
     >
       <div className="container mx-auto px-4 lg:px-8">
