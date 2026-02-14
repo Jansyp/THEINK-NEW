@@ -14,29 +14,37 @@ import {
 import { services, stats } from "../data/mock";
 
 const Home = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [activeServiceIndex, setActiveServiceIndex] = useState(0);
   const [viewportWidth, setViewportWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 1200
   );
-  const heroRef = useRef(null);
-  const videoRef = useRef(null);
+  const heroVideoRef = useRef(null);
   const touchStartXRef = useRef(null);
-
-  useEffect(() => {
-    setIsVisible(true);
-
-    const handleMouseMove = (e) => {
-      const { clientX, clientY } = e;
-      const x = (clientX / window.innerWidth - 0.5) * 20;
-      const y = (clientY / window.innerHeight - 0.5) * 20;
-      setMousePosition({ x, y });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  const heroVideoSrc = `${process.env.PUBLIC_URL}/video.mp4?v=20260214`;
+  const heroFallbackImage =
+    "https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&w=1920&q=80";
+  const heroCtaStyle = {
+    minWidth: "200px",
+    borderRadius: "12px",
+    backgroundColor: "#f0c94b",
+    color: "#19131f",
+    padding: "10px 16px",
+    textTransform: "uppercase",
+    letterSpacing: "0.02em",
+    fontWeight: 700,
+    fontSize: "14px",
+    boxShadow: "0 10px 26px rgba(0, 0, 0, 0.35)",
+  };
+  const heroCtaIconStyle = {
+    width: "26px",
+    height: "26px",
+    borderRadius: "999px",
+    backgroundColor: "#1d1433",
+    color: "#ffffff",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+  };
 
   const iconMap = {
     Monitor,
@@ -67,6 +75,22 @@ const Home = () => {
     const handleResize = () => setViewportWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    const video = heroVideoRef.current;
+    if (!video) return;
+
+    const tryPlay = () => {
+      video.play().catch(() => {});
+    };
+
+    video.addEventListener("loadeddata", tryPlay);
+    tryPlay();
+
+    return () => {
+      video.removeEventListener("loadeddata", tryPlay);
+    };
   }, []);
 
   const getWrappedIndex = (index) => {
@@ -129,163 +153,88 @@ const Home = () => {
     touchStartXRef.current = null;
   };
 
-  const AnimatedParticle = ({ delay, duration, size, color }) => (
-    <div
-      className="absolute rounded-full opacity-60 animate-float"
-      style={{
-        width: size,
-        height: size,
-        background: color,
-        top: `${Math.random() * 100}%`,
-        left: `${Math.random() * 100}%`,
-        animationDelay: delay,
-        animationDuration: duration,
-      }}
-    />
-  );
-
   return (
     <div className="min-h-screen">
       <section
-        ref={heroRef}
-        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black reveal-3d"
+        className="relative min-h-screen overflow-hidden bg-[#060511] text-white"
+        style={{
+          backgroundImage: `url(${heroFallbackImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
       >
-        <div className="absolute inset-0 w-full h-full">
-          <video
-            ref={videoRef}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover opacity-40"
-          >
-            <source
-              src="https://videos.pexels.com/video-files/3209889/3209889-uhd_2560_1440_25fps.mp4"
-              type="video/mp4"
-            />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/60 via-teal-900/50 to-cyan-900/60 mix-blend-multiply" />
-        </div>
+        <video
+          ref={heroVideoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          poster={heroFallbackImage}
+          className="absolute inset-0 h-full w-full object-cover"
+        >
+          <source src={heroVideoSrc} type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#070710]/58 via-[#0b0820]/38 to-[#100b2b]/22" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/12 via-transparent to-black/22" />
 
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div
-            className="absolute top-20 left-10 w-96 h-96 rounded-full border-4 border-emerald-400/30 animate-float transform-3d"
-            style={{
-              transform: `translate(${mousePosition.x * 0.5}px, ${mousePosition.y * 0.5}px) rotateX(${mousePosition.y * 0.1}deg) rotateY(${mousePosition.x * 0.1}deg)`,
-              transition: "transform 0.3s ease-out",
-            }}
-          />
-          <div
-            className="absolute bottom-20 right-20 w-72 h-72 rounded-full border-4 border-teal-400/30 animate-float-delayed transform-3d"
-            style={{
-              transform: `translate(${mousePosition.x * -0.3}px, ${mousePosition.y * -0.3}px) rotateX(${mousePosition.y * -0.1}deg) rotateY(${mousePosition.x * -0.1}deg)`,
-              transition: "transform 0.3s ease-out",
-            }}
-          />
-
-          {[...Array(20)].map((_, i) => (
-            <AnimatedParticle
-              key={i}
-              delay={`${i * 0.2}s`}
-              duration={`${5 + Math.random() * 5}s`}
-              size={`${10 + Math.random() * 20}px`}
-              color={`linear-gradient(135deg, ${["#10b981", "#14b8a6", "#06b6d4", "#22d3ee"][Math.floor(Math.random() * 4)]}, transparent)`}
-            />
-          ))}
-
-          <div className="absolute top-1/4 right-1/4 w-40 h-40 border-8 border-cyan-400/20 rotate-45 animate-pulse-slow" />
-          <div className="absolute bottom-1/4 left-1/4 w-32 h-32 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 rounded-2xl animate-float transform rotate-12" />
-        </div>
-
-        <div className="container mx-auto px-4 lg:px-8 relative z-10">
-          <div className="max-w-5xl mx-auto text-center">
-            <div
-              className={`inline-flex items-center space-x-2 px-6 py-3 bg-white/10 backdrop-blur-md rounded-full text-white font-medium text-sm border border-white/20 mb-8 transition-all duration-1000 ${
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10"
-              }`}
+        <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1400px] items-center px-6 pb-14 pt-24 sm:px-10 lg:px-16">
+          <div className="w-full max-w-[620px] bg-[#090713]/72 p-6 backdrop-blur-[1px] sm:p-9 lg:p-11">
+            <span
+              className="hero-premium-label inline-flex rounded-full px-4 py-1.5 text-xs uppercase tracking-[0.17em]"
+              style={{
+                backgroundColor: "#5a20a8",
+                color: "#ffea57",
+                fontSize: "14px",
+                fontWeight: 700,
+                boxShadow: "0 0 24px rgba(255, 216, 77, 0.35)",
+                marginTop: "48px",
+                marginBottom: "28px",
+                position: "relative",
+                zIndex: 30,
+              }}
             >
-              <Sparkles className="w-4 h-4 text-emerald-400 animate-pulse" />
-              <span>Professional Design Studio - Launching Soon</span>
-            </div>
+              Creative Agency
+            </span>
 
-            <h1
-              className={`text-6xl lg:text-8xl font-bold text-white leading-tight mb-8 transition-all duration-1000 delay-200 ${
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-              }`}
-            >
-              <span className="block italic mb-2">THEINK</span>
-              <span className="block italic bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 animate-gradient-x">
-                DESIGNS
-              </span>
+            <h1 className="hero-premium-title text-4xl font-semibold leading-[0.98] text-white sm:text-5xl lg:text-6xl">
+              <span className="block">Design</span>
+              <span className="block">The Future</span>
+              <span className="block">of Your Brand</span>
             </h1>
 
-            <p
-              className={`text-xl lg:text-3xl text-gray-200 leading-relaxed mb-12 max-w-3xl mx-auto transition-all duration-1000 delay-400 ${
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-              }`}
-            >
-              We design and develop{" "}
-              <span className="font-bold text-emerald-400">creative websites</span> to showcase your brand and
-              attract your audience.
+            <p className="hero-premium-body mt-12 max-w-md text-lg leading-relaxed text-white/88 sm:text-2xl">
+              We design and develop creative websites to showcase your brand and attract your audience.
             </p>
 
-            <p
-              className={`text-lg lg:text-xl text-gray-300 leading-relaxed mb-12 max-w-2xl mx-auto transition-all duration-1000 delay-500 ${
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-              }`}
-            >
+            <p className="hero-premium-body mt-6 max-w-md text-base leading-relaxed text-white/74 sm:text-lg">
               From stunning websites to complete digital marketing solutions, we bring your vision to life with
               creativity and innovation.
             </p>
 
-            <div
-              className={`flex flex-wrap gap-4 justify-center transition-all duration-1000 delay-700 ${
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-              }`}
-            >
+            <div className="mt-12 flex flex-wrap items-center gap-4">
               <Link
                 to="/services"
-                className="group px-10 py-5 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-full font-bold text-lg hover:shadow-2xl hover:shadow-emerald-500/50 hover:scale-110 transition-all duration-300 flex items-center space-x-2"
+                className="hero-premium-button group inline-flex min-w-[260px] items-center justify-between gap-6 rounded-2xl bg-[#f0c94b] px-7 py-4 text-base font-semibold uppercase tracking-[0.02em] text-[#19131f] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.04] hover:shadow-[0_14px_34px_rgba(0,0,0,0.42)]"
+                style={heroCtaStyle}
               >
                 <span>Explore Services</span>
-                <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+                <span style={heroCtaIconStyle}>
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </span>
               </Link>
 
               <Link
                 to="/contact"
-                className="px-10 py-5 bg-white/10 backdrop-blur-md text-white rounded-full font-bold text-lg border-2 border-white/30 hover:bg-white/20 hover:border-white/50 hover:scale-110 transition-all duration-300"
+                className="hero-premium-button group inline-flex min-w-[260px] items-center justify-between gap-6 rounded-2xl bg-[#f0c94b] px-7 py-4 text-base font-semibold uppercase tracking-[0.02em] text-[#19131f] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.04] hover:shadow-[0_14px_34px_rgba(0,0,0,0.42)]"
+                style={heroCtaStyle}
               >
-                Get Started
+                <span>Get Started</span>
+                <span style={heroCtaIconStyle}>
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </span>
               </Link>
             </div>
-
-            <div
-              className={`grid grid-cols-3 gap-8 mt-20 transition-all duration-1000 delay-900 ${
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-              }`}
-            >
-              {[
-                { number: "100+", label: "Design Projects" },
-                { number: "50+", label: "Happy Clients" },
-                { number: "24/7", label: "Support" },
-              ].map((stat, index) => (
-                <div
-                  key={index}
-                  className="p-6 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 hover:bg-white/10 hover:scale-105 transition-all duration-300"
-                >
-                  <div className="text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400 mb-2">
-                    {stat.number}
-                  </div>
-                  <div className="text-gray-300 text-sm lg:text-base">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-          <div className="w-8 h-12 border-2 border-white/50 rounded-full p-2 backdrop-blur-sm">
-            <div className="w-2 h-3 bg-white rounded-full animate-scroll mx-auto" />
           </div>
         </div>
       </section>

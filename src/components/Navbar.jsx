@@ -88,8 +88,12 @@ const Navbar = () => {
                 {/* Background highlight on hover */}
                 <span className={`absolute inset-0 rounded-full transition-all duration-300 ${
                   isActive(link.path) 
-                    ? 'bg-gradient-to-r from-emerald-50 to-teal-50 scale-100' 
-                    : 'bg-gradient-to-r from-emerald-50 to-teal-50 scale-0 group-hover:scale-100'
+                    ? !useLightNavbarText
+                      ? 'bg-gradient-to-r from-emerald-50 to-teal-50 scale-100'
+                      : 'bg-white/18 scale-100'
+                    : !useLightNavbarText
+                      ? 'bg-gradient-to-r from-emerald-50 to-teal-50 scale-0 group-hover:scale-100'
+                      : 'bg-white/18 scale-0 group-hover:scale-100'
                 }`} />
                 
                 {/* Text */}

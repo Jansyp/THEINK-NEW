@@ -1,6 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap");
+
 /* Smooth scrolling */
 html {
     scroll-behavior: smooth;
+}
+
+.hero-premium-title {
+    font-family: "Sora", "Avenir Next", "Segoe UI", sans-serif;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    text-shadow: 0 10px 34px rgba(0, 0, 0, 0.45);
+}
+
+.hero-premium-body {
+    font-family: "Outfit", "Inter", "Segoe UI", sans-serif;
+    letter-spacing: 0.01em;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+.hero-premium-button {
+    font-family: "Sora", "Avenir Next", "Segoe UI", sans-serif;
+    letter-spacing: 0.01em;
+}
+
+.hero-premium-number {
+    font-family: "Sora", "Avenir Next", "Segoe UI", sans-serif;
+    letter-spacing: -0.02em;
+}
+
+.hero-premium-label {
+    font-family: "Outfit", "Inter", "Segoe UI", sans-serif;
+    letter-spacing: 0.01em;
 }
 
 .App {
