@@ -15,6 +15,7 @@ import { services, stats } from "../data/mock";
 
 const Home = () => {
   const [activeServiceIndex, setActiveServiceIndex] = useState(0);
+  const [showHeroCtas, setShowHeroCtas] = useState(false);
   const [viewportWidth, setViewportWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 1200
   );
@@ -24,6 +25,21 @@ const Home = () => {
   const heroVideoSrc = `${process.env.PUBLIC_URL}/video.mp4?v=20260214`;
   const heroFallbackImage =
     "https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&w=1920&q=80";
+  const heroPrimaryCopy =
+    "We design and develop creative websites to showcase your brand and attract your audience.";
+  const heroSecondaryCopy =
+    "From stunning websites to complete digital marketing solutions, we bring your vision to life with creativity and innovation.";
+  const heroLetterStaggerSeconds = 0.018;
+  const heroLetterDurationSeconds = 0.52;
+  const heroPrimaryStartSeconds = 0.2;
+  const heroSecondaryStartSeconds = 0.95;
+  const primaryTextEndSeconds =
+    heroPrimaryStartSeconds + (heroPrimaryCopy.length - 1) * heroLetterStaggerSeconds + heroLetterDurationSeconds;
+  const secondaryTextEndSeconds =
+    heroSecondaryStartSeconds +
+    (heroSecondaryCopy.length - 1) * heroLetterStaggerSeconds +
+    heroLetterDurationSeconds;
+  const heroCtaRevealDelayMs = Math.ceil(Math.max(primaryTextEndSeconds, secondaryTextEndSeconds) * 1000) + 120;
   const heroCtaStyle = {
     minWidth: "200px",
     borderRadius: "12px",
@@ -93,6 +109,13 @@ const Home = () => {
       video.removeEventListener("loadeddata", tryPlay);
     };
   }, []);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setShowHeroCtas(true);
+    }, heroCtaRevealDelayMs);
+    return () => window.clearTimeout(timer);
+  }, [heroCtaRevealDelayMs]);
 
   useEffect(() => {
     const root = homeRootRef.current;
@@ -178,8 +201,54 @@ const Home = () => {
     touchStartXRef.current = null;
   };
 
+  const renderAnimatedLetters = (text, startDelay = 0) =>
+    text.split("").map((char, index) => (
+      <span
+        key={`${startDelay}-${index}-${char}`}
+        className="inline-block opacity-0"
+        style={{
+          animation: "heroLetterReveal 520ms ease-out forwards",
+          animationDelay: `${startDelay + index * heroLetterStaggerSeconds}s`,
+        }}
+      >
+        {char === " " ? "\u00A0" : char}
+      </span>
+    ));
+
   return (
     <div ref={homeRootRef} className="min-h-screen">
+      <style>
+        {`
+          @keyframes heroBadgeEnter {
+            0% { opacity: 0; transform: translateY(-10px) scale(0.96); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+          }
+          @keyframes heroBadgeGlow {
+            0%, 100% { box-shadow: 0 0 24px rgba(255, 216, 77, 0.35); }
+            50% { box-shadow: 0 0 34px rgba(255, 216, 77, 0.58); }
+          }
+          @keyframes heroTitleLineReveal {
+            0% { opacity: 0; transform: translateY(22px) skewY(2deg); filter: blur(3px); }
+            100% { opacity: 1; transform: translateY(0) skewY(0); filter: blur(0); }
+          }
+          @keyframes heroTitleLineSheen {
+            0%, 100% { text-shadow: 0 0 0 rgba(255, 234, 87, 0); }
+            50% { text-shadow: 0 0 14px rgba(255, 234, 87, 0.38); }
+          }
+          @keyframes heroLetterReveal {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+          }
+          @keyframes heroCtaReveal {
+            0% { opacity: 0; transform: translateY(18px); filter: blur(2px); }
+            100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+          }
+          @keyframes heroCtaGlow {
+            0%, 100% { box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35); }
+            50% { box-shadow: 0 14px 32px rgba(240, 201, 75, 0.4); }
+          }
+        `}
+      </style>
       <section
         className="relative min-h-screen overflow-hidden bg-[#060511] text-white"
         style={{
@@ -217,31 +286,52 @@ const Home = () => {
                 marginBottom: "28px",
                 position: "relative",
                 zIndex: 30,
+                opacity: 0,
+                animation: "heroBadgeEnter 700ms ease-out 1 both, heroBadgeGlow 2.2s ease-in-out 750ms infinite",
               }}
             >
               Creative Agency
             </span>
 
             <h1 className="hero-premium-title text-4xl font-semibold leading-[0.98] text-white sm:text-5xl lg:text-6xl">
-              <span className="block">Design</span>
-              <span className="block">The Future</span>
-              <span className="block">of Your Brand</span>
+              <span
+                className="block"
+                style={{ opacity: 0, animation: "heroTitleLineReveal 700ms cubic-bezier(0.2, 0.85, 0.2, 1) 220ms 1 both, heroTitleLineSheen 1.4s ease-in-out 980ms 1" }}
+              >
+                Design
+              </span>
+              <span
+                className="block"
+                style={{ opacity: 0, animation: "heroTitleLineReveal 700ms cubic-bezier(0.2, 0.85, 0.2, 1) 380ms 1 both, heroTitleLineSheen 1.4s ease-in-out 1120ms 1" }}
+              >
+                The Future
+              </span>
+              <span
+                className="block"
+                style={{ opacity: 0, animation: "heroTitleLineReveal 700ms cubic-bezier(0.2, 0.85, 0.2, 1) 560ms 1 both, heroTitleLineSheen 1.4s ease-in-out 1260ms 1" }}
+              >
+                of Your Brand
+              </span>
             </h1>
 
             <p className="hero-premium-body mt-12 max-w-md text-lg leading-relaxed text-white/88 sm:text-2xl">
-              We design and develop creative websites to showcase your brand and attract your audience.
+              {renderAnimatedLetters(heroPrimaryCopy, heroPrimaryStartSeconds)}
             </p>
 
             <p className="hero-premium-body mt-6 max-w-md text-base leading-relaxed text-white/74 sm:text-lg">
-              From stunning websites to complete digital marketing solutions, we bring your vision to life with
-              creativity and innovation.
+              {renderAnimatedLetters(heroSecondaryCopy, heroSecondaryStartSeconds)}
             </p>
 
-            <div className="mt-12 flex flex-wrap items-center gap-4">
+            <div className="mt-12 min-h-[72px]">
+              {showHeroCtas ? (
+                <div className="flex flex-wrap items-center gap-4">
               <Link
                 to="/services"
                 className="hero-premium-button group inline-flex min-w-[260px] items-center justify-between gap-6 rounded-2xl bg-[#f0c94b] px-7 py-4 text-base font-semibold uppercase tracking-[0.02em] text-[#19131f] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.04] hover:shadow-[0_14px_34px_rgba(0,0,0,0.42)]"
-                style={heroCtaStyle}
+                style={{
+                  ...heroCtaStyle,
+                  animation: "heroCtaReveal 650ms ease-out 120ms 1 both, heroCtaGlow 1.4s ease-in-out 850ms 1",
+                }}
               >
                 <span>Explore Services</span>
                 <span style={heroCtaIconStyle}>
@@ -252,13 +342,18 @@ const Home = () => {
               <Link
                 to="/contact"
                 className="hero-premium-button group inline-flex min-w-[260px] items-center justify-between gap-6 rounded-2xl bg-[#f0c94b] px-7 py-4 text-base font-semibold uppercase tracking-[0.02em] text-[#19131f] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.04] hover:shadow-[0_14px_34px_rgba(0,0,0,0.42)]"
-                style={heroCtaStyle}
+                style={{
+                  ...heroCtaStyle,
+                  animation: "heroCtaReveal 650ms ease-out 240ms 1 both, heroCtaGlow 1.4s ease-in-out 980ms 1",
+                }}
               >
                 <span>Get Started</span>
                 <span style={heroCtaIconStyle}>
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                 </span>
               </Link>
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
