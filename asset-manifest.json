@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/THEINK-NEW/static/css/main.3cc996a1.css",
-    "main.js": "/THEINK-NEW/static/js/main.d4cf5bd2.js",
+    "main.js": "/THEINK-NEW/static/js/main.d5baaa5e.js",
     "index.html": "/THEINK-NEW/index.html",
     "main.3cc996a1.css.map": "/THEINK-NEW/static/css/main.3cc996a1.css.map",
-    "main.d4cf5bd2.js.map": "/THEINK-NEW/static/js/main.d4cf5bd2.js.map"
+    "main.d5baaa5e.js.map": "/THEINK-NEW/static/js/main.d5baaa5e.js.map"
   },
   "entrypoints": [
     "static/css/main.3cc996a1.css",
-    "static/js/main.d4cf5bd2.js"
+    "static/js/main.d5baaa5e.js"
   ]
 }
