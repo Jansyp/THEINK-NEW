@@ -6,6 +6,10 @@ import { services } from '../data/mock';
 const Services = () => {
   const [activeService, setActiveService] = useState(0);
   const location = useLocation();
+  const brandIdentityImage = `${process.env.PUBLIC_URL}/Corporate_Identity_Package.png`;
+  const websiteDesignImage = `${process.env.PUBLIC_URL}/Website_Design.png`;
+  const digitalMarketingImage = `${process.env.PUBLIC_URL}/Digital_Marketting.png`;
+  const printDesignImage = `${process.env.PUBLIC_URL}/Print%20Design%20Service.png`;
 
   useEffect(() => {
     if (!location.hash) return;
@@ -51,6 +55,10 @@ const Services = () => {
           {services.map((service, index) => {
             const Icon = iconMap[service.icon];
             const isEven = index % 2 === 0;
+            const isBrandIdentity = service.title === 'Brand Identity Design';
+            const isWebsiteDesign = service.title === 'Website Design & Development';
+            const isDigitalMarketing = service.title === 'Digital Marketing';
+            const isPrintDesign = service.title === 'Print Design Services';
 
             return (
               <div
@@ -63,9 +71,19 @@ const Services = () => {
                   <div className={`${!isEven ? 'lg:col-start-2' : ''}`}>
                     <div className="relative group tilt-card rounded-3xl">
                       <div className={`absolute inset-0 bg-gradient-to-r ${service.color} rounded-3xl blur-2xl opacity-30 group-hover:opacity-50 transition-opacity duration-300`} />
-                      <div className={`relative bg-gradient-to-r ${service.color} rounded-3xl p-12 lg:p-16 flex items-center justify-center transform group-hover:scale-105 transition-transform duration-300`}>
-                        <Icon className="w-32 h-32 lg:w-40 lg:h-40 text-white animate-float" />
-                      </div>
+                      {isBrandIdentity || isWebsiteDesign || isDigitalMarketing || isPrintDesign ? (
+                        <div className="relative rounded-3xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300">
+                          <img
+                            src={isWebsiteDesign ? websiteDesignImage : isDigitalMarketing ? digitalMarketingImage : isPrintDesign ? printDesignImage : brandIdentityImage}
+                            alt={isWebsiteDesign ? 'Website Design' : isDigitalMarketing ? 'Digital Marketing' : isPrintDesign ? 'Print Design Services' : 'Corporate Identity Package'}
+                            className="w-full h-full max-h-[420px] object-cover"
+                          />
+                        </div>
+                      ) : (
+                        <div className={`relative bg-gradient-to-r ${service.color} rounded-3xl p-12 lg:p-16 flex items-center justify-center transform group-hover:scale-105 transition-transform duration-300`}>
+                          <Icon className="w-32 h-32 lg:w-40 lg:h-40 text-white animate-float" />
+                        </div>
+                      )}
                     </div>
                   </div>
 

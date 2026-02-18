@@ -67,7 +67,7 @@ export const portfolioItems = [
     title: "Tech Startup Branding",
     category: "Brand Identity",
     description: "Complete brand identity and website for innovative tech startup",
-    image: "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800",
+    image: `${process.env.PUBLIC_URL}/Tech_startup_branding.png`,
     tags: ["Logo", "Website", "Business Cards"]
   },
   {
@@ -75,7 +75,7 @@ export const portfolioItems = [
     title: "Restaurant Menu Design",
     category: "Print Design",
     description: "Elegant menu design and complete stationery package",
-    image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800",
+    image: `${process.env.PUBLIC_URL}/Restaurant_Menu_Design.png`,
     tags: ["Menu", "Flyers", "Brochure"]
   },
   {
@@ -83,7 +83,7 @@ export const portfolioItems = [
     title: "E-commerce Platform",
     category: "Website Design",
     description: "Modern e-commerce website with seamless user experience",
-    image: "https://images.unsplash.com/photo-1547658718-1cdaa0852790?w=800",
+    image: `${process.env.PUBLIC_URL}/E-commerce_Platform.png`,
     tags: ["Website", "UI/UX", "Responsive"]
   },
   {
@@ -91,7 +91,7 @@ export const portfolioItems = [
     title: "Corporate Identity Package",
     category: "Corporate Gifting",
     description: "Premium corporate gift set with custom branding",
-    image: "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=800",
+    image: `${process.env.PUBLIC_URL}/Corporate_Identity.png`,
     tags: ["Gifting", "Branding", "Packaging"]
   },
   {
@@ -99,7 +99,7 @@ export const portfolioItems = [
     title: "Social Media Campaign",
     category: "Digital Marketing",
     description: "Engaging social media campaign that increased reach by 300%",
-    image: "https://images.unsplash.com/photo-1611926653670-e13a09cd1a07?w=800",
+    image: `${process.env.PUBLIC_URL}/Social_Media_Campaign.png`,
     tags: ["Social Media", "Content", "Marketing"]
   },
   {
@@ -107,7 +107,7 @@ export const portfolioItems = [
     title: "Product Label Design",
     category: "Specialized Design",
     description: "Eye-catching product labels for premium consumer goods",
-    image: "https://images.unsplash.com/photo-1560343090-f0409e92791a?w=800",
+    image: `${process.env.PUBLIC_URL}/Product_Label_Design.png`,
     tags: ["Label", "Packaging", "Branding"]
   }
 ];
